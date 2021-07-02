@@ -1,0 +1,180 @@
+ {% extends 'base.html' %} {% load static %} {% block content %}
+<main class="home">
+    <div class="top" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+        {% for slide in sliders %}
+        <div class="top-banner">
+            <img src={{slide.photo.url}} alt="" class="img-fluid w-100">
+            <div class="top-container d-flex flex-column pl-5">
+                <h1>
+                    {{ slide.headline }}
+                </h1>
+                <p>
+                    {{ slide.subtitle }}
+                </p>
+                <div>
+                    <a href="{% url 'services' %}" class="btn btn-high btn-success">{{ slide.button_text }}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+
+    <section class="container d-flex justify-content-center align-items-center mt-4">
+        <form method="GET" action="{% url 'search' %}" class="row text-center">
+            <div class="col-md-auto">
+                <div class="form-group mb-2">
+                    <input name="keyword" class="form-control" placeholder="Enter Keywords">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-accent ml-2 mb-2 pl-5 pr-5">Search</button>
+
+                </div>
+            </div>
+        </form>
+    </section>
+
+
+
+    <section class="container mt-3">
+        <h3 class="text-center">Featured YTubers</h3>
+        <p class="pt-2 pb-3 text-center">YTubers that did extra ordinary last month</p>
+        <div class="team slider" data-slick='{"slidesToShow": 3, "slidesToScroll": 1}'>
+            {% for fy in featured_youtubers %}
+            <!-- person 1 -->
+            <div class="card border-0 text-center ml-1 mr-3">
+                <div class="feature-text">
+                    <a href="{% url 'youtubers_detail' fy.id %}">
+                        <img src="{{fy.photo}}" class="card-img-top" alt="team-member">
+                    </a>
+                    <span class="text-left bg-accent font-weight-bold">
+              Featured
+            </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{fy.first_name}} {{fy.last_name}}</h5>
+                    <p class="card-text">{{fy.category}}</p>
+                    <div class="person-description mt-2">
+                        <button class="btn btn-accent"> City:
+                {{fy.city}} </button>
+                        <button class="btn btn-accent"> Age:
+                {{fy.age}} </button>
+                        <a href="{{fy.insta_link}}" class="btn btn-accent" style="background-color: #e9a14e;" style="border-color: aqua;"><i class="fab fa-instagram fa-lg	" style="font-size:50px; text-align: center"></i></a>
+                    </div>
+                    <div class="person-description mt-2">
+                        <button class="btn btn-accent"> {{fy.crew}}</button>
+                        <button class="btn btn-accent"> Camera:
+                {{fy.camera}} </button>
+                        <button class="btn btn-accent"> Subs Count:
+                {{fy.subs}} </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        <div class="controls d-flex justify-content-center mt-2 mb-2">
+            <div class="d-flex">
+                <i class="fa fa-angle-left youtuber-left"></i>
+                <i class="fa fa-angle-right youtuber-right"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mt-7 mb-7">
+        <h3 class="text-center">Latest On Board YTubers</h3>
+        <p class="pt-2 pb-3 text-center">YTubers who recently got onboard with us</p>
+
+        <div class="tubers grid">
+            {% for oy in onboard_youtubers %}
+            <!-- person 1 -->
+            <div class="card border-0 text-center">
+                <div>
+                    <a href="{% url 'youtubers_detail' oy.id %}">
+                        <img src="{{oy.photo.url}}" class="card-img-top" alt="team-member">
+                    </a>
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{oy.first_name}}</h5>
+                    <p class="card-text">{{oy.category}}</p>
+                    <div class="person-description mt-2">
+                        <button class="btn btn-accent"> City:
+                {{oy.city}} </button>
+                        <button class="btn btn-accent"> Age:
+                {{oy.age}} </button>
+                        <a href="{{oy.insta_link}}" class="btn btn-accent" style="background-color: rgb(226, 135, 157);" style="position: centre;"><i class="fab fa-instagram fa-lg	" style="font-size:50px; text-align: center"></i></a>
+                    </div>
+                    <div class="person-description mt-2">
+                        <button class="btn btn-accent"> {{oy.crew}} </button>
+                        <button class="btn btn-accent"> Camera:
+                {{oy.camera}} </button>
+                        <button class="btn btn-accent"> Subs:
+                {{oy.subs}}</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+
+        <div class="controls d-flex justify-content-center mt-2 mb-2">
+            <div class="d-flex">
+                <i class="fa fa-angle-left youtuber-left"></i>
+                <i class="fa fa-angle-right youtuber-right"></i>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+
+    <section class="container mt-3">
+        <h3 class="text-center">The Mystical Team</h3>
+        <p class="pt-2 pb-3 text-center">Meet the team</p>
+        <div class="team slider" data-slick='{"slidesToShow": 3, "slidesToScroll": 1}'>
+            {% for tm in teams %}
+            <!-- team 1 -->
+            <div class="card border-0 text-center  ml-3 mr-3">
+                <img src=" {{tm.photo}}" width="100%" alt="team-member" class="center">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{tm.first_name}} {{tm.last_name}}</h5>
+                    <p class="card-text">{{ tm.role }}</p>
+                    <a href="{{tm.youtube_link}}" class="btn btn-accent btn-block" style="background-color: crimson;"><i class="fab fa-youtube-square"></i>Youtube</a>
+                    <div class="text-center mt-2">
+
+                        <a href="{{tm.fb_link}}" class="btn btn-accent" style="background-color: darkblue;"><i class="fab fa-facebook-f fa-lg	"></i></a>
+                        <a href="{{tm.insta_link}}" class="btn btn-accent" style="background-color: rgb(226, 135, 157);"><i class="fab fa-instagram fa-lg 	" style="width: max-content;"></i></a>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            {% endfor %}
+        </div>
+
+        <div class="controls d-flex justify-content-center mt-2 mb-2">
+            <div class="d-flex">
+                <i class="fa fa-angle-left team-left"></i>
+                <i class="fa fa-angle-right team-right"></i>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
